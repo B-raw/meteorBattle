@@ -6,6 +6,14 @@ CharacterSchema = new SimpleSchema({
     label: 'Name'
   },
 
+  hp: {
+    type: Number,
+    label: 'hp',
+    autoValue: function() {
+      return 100
+    }
+  },
+
   createdAt: {
     type: Date,
     label: "Created At",
