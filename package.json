@@ -2,7 +2,8 @@
   "name": "meteorBattle",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "test": "mocha"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0",
