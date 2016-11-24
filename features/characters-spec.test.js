@@ -1,13 +1,3 @@
-// import { Meteor } from 'meteor/meteor';
-function signInHelper(email, password) {
-  browser.url('http://localhost:3000');
-  browser.click('#login-sign-in-link');
-  browser.click("#signup-link");
-  browser.setValue('input#login-email', email);
-  browser.setValue('input#login-password', password);
-  browser.click('div#login-buttons-password');
-}
-
 describe('Character', function() {
   describe('Add a character', function () {
 
@@ -16,8 +6,12 @@ describe('Character', function() {
       server.execute(function () {
         Package['xolvio:cleaner'].resetDatabase();
       });
+      server.call('user.signup', 'Pikachu@pika.com', 'pikapika');
+      browser.url('http://localhost:3000');
+      browser.execute(function(){
+        Meteor.loginWithPassword('Pikachu@pika.com', 'pikapika');
+      });
 
-      signInHelper('Pikachu@pika.com', "pikapika");
       browser.waitForExist("form.newCharacterForm", 4000);
       browser.setValue( '[name="name"]', 'Pikachu' )
              .submitForm( 'form.newCharacterForm' );
