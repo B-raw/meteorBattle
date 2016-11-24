@@ -6,7 +6,7 @@ function signUp(email, password){
 
 function signIn(browserName, email, password) {
 
-  browserName.url('http://localhost:3000')
+  browserName.url('http://localhost:3000/')
          .click('#login-sign-in-link')
          .setValue( '[id="login-email"]', email )
          .setValue( '[id="login-password"]', password )
@@ -24,10 +24,10 @@ function signIn(browserName, email, password) {
 //     signUp(opponentBrowser, 'tesco@hotmail.com', 'testtest');
 //   });
 
-describe('sign up and display character', function() {
+describe('sign up and display character @watch', function() {
   before(function() {
-    signUp("one@hotmail.com", "asddsa");
-    signUp("two@hotmail.com", "asddsa");
+    // signUp("one@hotmail.com", "asddsa");
+    // signUp("two@hotmail.com", "asddsa");
 
     hostBrowser = browser.instances[0]
     opponentBrowser = browser.instances[1];
@@ -36,13 +36,20 @@ describe('sign up and display character', function() {
     signIn(opponentBrowser, "two@hotmail.com", "asddsa")
   })
 
-  it('it can create a character', function() {
-    hostBrowser.url('http://localhost:3000')
-    opponentBrowser.url('http://localhost:3000/')
-    var hostText = hostBrowser.getUrl();
-    var opponentText = opponentBrowser.getUrl();
-    console.log(hostText)
-    console.log(opponentText)
+  it('it can display a user in the lobby', function() {
+    hostBrowser.url('http://localhost:3000/lobby')
+               .waitForExist('.player', 800);
+    opponentBrowser.url('http://localhost:3000/lobby')
+                   .waitForExist('.player', 800);
+    lobbyTextHost = hostBrowser.getText('.player');
+    lobbyTextOpponent = opponentBrowser.getText('.player');
 
+    expect(lobbyTextHost).to.equal("two@hotmail.com")
+    expect(lobbyTextOpponent).to.equal("one@hotmail.com")
   });
 });
+
+
+
+
+//

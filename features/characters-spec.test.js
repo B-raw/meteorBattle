@@ -33,8 +33,8 @@ describe('Character', function() {
       expect( getCharacter.hp ).to.equal(100);
     });
 
-    it('displays your characters on the fight page @watch', function() {
-      var getLobbyUrl = browser.getUrl();
+    it('displays your characters on the fight page', function() {
+      var getLobbyUrl = browser.instances[0].getUrl();
 
       expect(getLobbyUrl).to.equal("http://localhost:3000/lobby");
     });
