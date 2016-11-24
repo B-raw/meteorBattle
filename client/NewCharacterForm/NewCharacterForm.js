@@ -3,5 +3,6 @@ Template.NewCharacterForm.events({
     event.preventDefault();
     var name = event.target.name.value;
     Meteor.call('newCharacter', name);
+    FlowRouter.go('lobby');
   }
 });
