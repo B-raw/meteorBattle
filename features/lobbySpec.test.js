@@ -24,7 +24,7 @@ function signIn(browserName, email, password) {
 //     signUp(opponentBrowser, 'tesco@hotmail.com', 'testtest');
 //   });
 
-describe('sign up and display character @watch', function() {
+describe('sign up and display character', function() {
   before(function() {
 
     server.execute(function () {
@@ -55,9 +55,16 @@ describe('sign up and display character @watch', function() {
     opponentBrowser.url('http://localhost:3000/lobby')
                    .waitForExist('.player', 800);
     var lobbyTextHost = hostBrowser.getText('li:nth-of-type(1)');
-    var lobbyTextOpponent = opponentBrowser.getText('li:nth-of-type(2)');
+    var lobbyTextOpponent = opponentBrowser.getText('li:nth-of-type(1)');
 
     expect(lobbyTextHost).to.equal("Snorlax")
     expect(lobbyTextOpponent).to.equal("Pikachu")
+  });
+
+  it("it can doesn't display the character if logged out @watch", function() {
+    opponentBrowser.click('#login-name-link').click('#login-buttons-logout')
+    var lobbyTextHost = hostBrowser.getText('ul');
+
+    expect(lobbyTextHost).to.equal("")
   });
 });

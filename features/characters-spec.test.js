@@ -33,6 +33,21 @@ describe('Character', function() {
       expect( getCharacter.hp ).to.equal(100);
     });
 
+    // it('character gets created with a user id', function () {
+    //   // var userId = server.execute( function() {
+    //   //   return Meteor.userId();
+    //   //   console.log(Meteor.userId())
+    //   // });
+    //
+    //   // userId = Meteor.userId();
+    //   // consle.log(userId)
+    //   var getCharacter = server.execute( function() {
+    //     return Characters.findOne( { name: "Pikachu" } );
+    //   });
+    //
+    //   expect( getCharacter.hp ).to.equal(100);
+    // });
+
     it('displays your characters on the fight page', function() {
       var getLobbyUrl = browser.instances[0].getUrl();
 

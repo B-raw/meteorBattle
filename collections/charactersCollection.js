@@ -21,12 +21,21 @@ CharacterSchema = new SimpleSchema({
       return new Date()
     },
     autoform: { type: 'hidden'}
+  },
+  createdBy: {
+    type: String,
+    label: "Created By",
+    autoform: { type: 'hidden'}
   }
 });
 
 Meteor.methods({
   newCharacter: function(name){
-    Characters.insert({name: name});
+    check(name, String)
+
+    var currentUserId = Meteor.userId();
+
+    Characters.insert({name: name, createdBy: currentUserId});
   }
 });
 
