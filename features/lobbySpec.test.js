@@ -11,8 +11,8 @@ function signIn(browserName, email, password) {
          .setValue( '[id="login-email"]', email )
          .setValue( '[id="login-password"]', password )
          .click("#login-buttons-password")
-  browserName.waitForExist("#login-name-link");
-
+  browserName.waitForExist("#login-name-link")
+  browserName.url('http://localhost:3000/character/new');
 };
 
 // describe('Battle Lobby', function() {
@@ -26,30 +26,38 @@ function signIn(browserName, email, password) {
 
 describe('sign up and display character @watch', function() {
   before(function() {
-    // signUp("one@hotmail.com", "asddsa");
-    // signUp("two@hotmail.com", "asddsa");
+
+    server.execute(function () {
+      Package['xolvio:cleaner'].resetDatabase();
+    });
+
+    signUp("one@hotmail.com", "asddsa");
+    signUp("two@hotmail.com", "asddsa");
 
     hostBrowser = browser.instances[0]
     opponentBrowser = browser.instances[1];
 
     signIn(hostBrowser, "one@hotmail.com", "asddsa")
-    signIn(opponentBrowser, "two@hotmail.com", "asddsa")
-  })
+    hostBrowser.waitForExist("form.newCharacterForm", 4000);
+    hostBrowser.setValue( '[name="name"]', 'Pikachu' )
+           .submitForm( 'form.newCharacterForm' );
 
-  it('it can display a user in the lobby', function() {
+    signIn(opponentBrowser, "two@hotmail.com", "asddsa")
+    opponentBrowser.waitForExist("form.newCharacterForm", 4000);
+    opponentBrowser.setValue( '[name="name"]', 'Snorlax' )
+           .submitForm( 'form.newCharacterForm' );
+  });
+
+  it('it can display a character name in the lobby', function() {
+
     hostBrowser.url('http://localhost:3000/lobby')
                .waitForExist('.player', 800);
     opponentBrowser.url('http://localhost:3000/lobby')
                    .waitForExist('.player', 800);
-    lobbyTextHost = hostBrowser.getText('.player');
-    lobbyTextOpponent = opponentBrowser.getText('.player');
+    var lobbyTextHost = hostBrowser.getText('li:nth-of-type(1)');
+    var lobbyTextOpponent = opponentBrowser.getText('li:nth-of-type(2)');
 
-    expect(lobbyTextHost).to.equal("two@hotmail.com")
-    expect(lobbyTextOpponent).to.equal("one@hotmail.com")
+    expect(lobbyTextHost).to.equal("Snorlax")
+    expect(lobbyTextOpponent).to.equal("Pikachu")
   });
 });
-
-
-
-
-//
