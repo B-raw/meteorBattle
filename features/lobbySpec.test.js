@@ -15,7 +15,7 @@ function signUpAndSignIn(browserName, email, password){
 }
 
 describe('sign up and display character', function() {
-  before(function() {
+  beforeEach(function() {
 
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
@@ -37,7 +37,7 @@ describe('sign up and display character', function() {
            .submitForm( 'form.newCharacterForm' );
   });
 
-  it('it can display a character name in the lobby @watch', function() {
+  it('it can display a character name in the lobby', function() {
 
     hostBrowser.url('http://localhost:3000/lobby')
                .waitForExist('.player', 800);
@@ -50,8 +50,10 @@ describe('sign up and display character', function() {
     expect(lobbyTextOpponent).to.equal("Pikachu");
   });
 
-  // it("it doesn't display the logged in users character @watch", function() {
-  //   var lobbyTextHost = hostBrowser.getText('ul');
-  //   expect(lobbyTextHost).to.equal("");
-  // });
+  it("it doesn't display the logged in users character @watch", function() {
+    opponentBrowser.click('#login-name-link').click('#login-buttons-logout');
+
+    var lobbyTextHost = hostBrowser.getText('ul');
+    expect(lobbyTextHost).to.equal("");
+  });
 });

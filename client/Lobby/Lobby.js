@@ -7,11 +7,18 @@ Template.Lobby.helpers({
  },
  'usersOnline': function() {
    var currentUserId = Meteor.userId()
-   console.log(Meteor.users.find({ "status.online": true }).fetch())
    return Meteor.users.find({ "status.online": true, _id: { $ne: currentUserId } }, )
  }
 });
 
+Template.User.helpers({
+  'character'(){
+    var characterId = this.characterId;
+    var char = Characters.findOne( characterId );
+    
+    return char.name;
+  }
+});
 // Template.userPill.labelClass = function() {
 //   if (this.status.idle)
 //     return "label-warning"
