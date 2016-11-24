@@ -1,3 +1,7 @@
+function getBrowser(i) {
+  return browser.instances[i];
+}
+
 describe('Chimp Mocha', function() {
 
   describe('Login Links', function () {
@@ -9,17 +13,16 @@ describe('Chimp Mocha', function() {
     });
 
     it('Should exist on homepage', function () {
-      browser.url('http://localhost:3000');
-      expect(browser.getTitle()).to.equal("meteorBattle");
+      getBrowser(0).url('http://localhost:3000');
+      expect(getBrowser(0).getTitle()).to.equal("meteorBattle");
     });
 
     it("Should have user login links on homepage", function () {
-      browser.url('http://localhost:3000');
-      browser.waitForExist("#login-sign-in-link");
-      var actualText = browser.getText("#login-sign-in-link");
+      getBrowser(0).url('http://localhost:3000');
+      getBrowser(0).waitForExist("#login-sign-in-link");
+      var actualText = getBrowser(0).getText("#login-sign-in-link");
 
       expect(actualText).to.equal("Sign in ▾");
-      // expect(browser.getAttribute('sign-in-login-links')).to.('Sign in')
     });
   });
 });
