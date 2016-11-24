@@ -1,33 +1,40 @@
-const signUpSignIn = function() {
 
-  browser.url('http://localhost:3000')
+var hostBrowser, opponentBrowser;
+
+const signUp = function(browserName, email, password) {
+
+  browserName.url('http://localhost:3000')
          .click('#login-sign-in-link')
-        //  .click('#signup-link')
-         .setValue( '[id="login-email"]', 'asda@hotmail.com' )
-         .setValue( '[id="login-password"]', 'asddsa' )
+         .click('#signup-link')
+         .setValue( '[id="login-email"]', email )
+         .setValue( '[id="login-password"]', password )
          .click("#login-buttons-password")
-  browser.waitForExist("#login-name-link");
-  // var actualText = browser.getText("#login-name-link", "x") // Get x or y, if not specified, an object {x, y} is returned.
+};
 
-  // expect(actualText).to.equal("asda@hotmail.com ▾");
+const signIn = function(browserName, email, password) {
+
+  browserName.url('http://localhost:3000')
+         .click('#login-sign-in-link')
+         .setValue( '[id="login-email"]', email )
+         .setValue( '[id="login-password"]', password )
+         .click("#login-buttons-password")
+  browserName.waitForExist("#login-name-link");
+
 };
 
 describe('Battle Lobby', function() {
 
-  // describe('Login Links', function () {
+  before(function(){
+    hostBrowser = new Browser({ site: 'http://localhost:3000' });
+    opponentBrowser = new Browser({ site: 'http://localhost:3000' });
+    signUp(hostBrowser, 'asda@hotmail.com', 'testtest');
+    signUp(opponentBrowser, 'tesco@hotmail.com', 'testtest');
+  });
 
-    it('Should exist on homepage', function () {
-      signUpSignIn();
-      expect(browser.getTitle()).to.equal("meteorBattle");
+    it('Should show a list of signed in users', function () {
+      var doesExist1 = hostBrowser.waitForExist(".user");
+      var doesExist2 = hostBrowser.waitForExist(".user");
+      expect doesExist1.to.equal('asda@hotmail.com')
+      expect doesExist2.to.equal('tesco@hotmail.com')
     });
-
-    // it("Should have user login links on homepage", function () {
-    //   browser.url('http://localhost:3000');
-    //   browser.waitForExist("#login-sign-in-link");
-    //   var actualText = browser.getText("#login-sign-in-link");
-    //
-    //   expect(actualText).to.equal("Sign in ▾");
-    //   // expect(browser.getAttribute('sign-in-login-links')).to.('Sign in')
-    // });
-  // });
-});
+}
