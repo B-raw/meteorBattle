@@ -31,11 +31,12 @@ CharacterSchema = new SimpleSchema({
 
 Meteor.methods({
   newCharacter: function(name){
-    check(name, String)
-
+    check(name, String);
     var currentUserId = Meteor.userId();
-
-    Characters.insert({name: name, createdBy: currentUserId});
+    Characters.insert({name: name, createdBy: currentUserId}, Meteor.call('redirectToLobby'));
+  },
+  redirectToLobby: function(){
+    FlowRouter.go('lobby');
   }
 });
 
