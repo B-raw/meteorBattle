@@ -9,7 +9,7 @@ describe('Character', function() {
              .submitForm( 'form.newCharacterForm' );
     });
 
-    it('character gets created with a name @watch', function () {
+    it('character gets created with a name', function () {
       var getCharacter = server.execute( function() {
         return Characters.findOne( { name: "Pikachu" } );
       });
@@ -17,13 +17,19 @@ describe('Character', function() {
       expect( getCharacter.name ).to.equal("Pikachu");
     });
 
-    it('character gets created with a hp of 100 @watch', function () {
+    it('character gets created with a hp of 100', function () {
       var getCharacter = server.execute( function() {
         return Characters.findOne( { name: "Pikachu" } );
       });
 
       expect( getCharacter.hp ).to.equal(100);
-    });    
+    });
+
+    it('displays your characters on the fight page @watch', function() {
+      var getLobbyUrl = browser.getUrl();
+
+      expect(getLobbyUrl).to.equal("http://localhost:3000/lobby");
+    });
 
     afterEach( function() {
       server.execute( function() {
