@@ -1,6 +1,12 @@
 describe('Chimp Mocha', function() {
 
   describe('Login Links', function () {
+    beforeEach(function(){
+      server.call('logout');
+      server.execute(function () {
+        Package['xolvio:cleaner'].resetDatabase();
+      });
+    });
 
     it('Should exist on homepage', function () {
       browser.url('http://localhost:3000');
