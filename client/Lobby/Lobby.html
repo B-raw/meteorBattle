@@ -1,12 +1,12 @@
 <template name="Lobby">
-  <h2>Battle Requests</h2>
+  <!-- <h2>Battle Requests</h2>
     <ul>
       {{#each battleRequest}}
       <li>
         {{> UserAcceptFight}}
       </li>
       {{/each}}
-    </ul>
+    </ul> -->
 
   <h2>Online Users</h2>
     <ul>
@@ -18,12 +18,16 @@
 
 <template name="User">
   <li class="player">
-    {{character}} <button class='send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
+    {{#if Template.subscriptionsReady}}
+      {{character}} <button class='send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
+    {{else}}
+      <p>Loading...</p>
+    {{/if}}
   </li>
 </template>
 
 <template name="UserAcceptFight">
   <li class="player">
-    {{character}} <button class='pending-battle-invite'>Accept Battle Request</button>
+    <!-- {{character}} <button class='pending-battle-invite'>Accept Battle Request</button> -->
   </li>
 </template>

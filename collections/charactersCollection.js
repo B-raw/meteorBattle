@@ -13,7 +13,6 @@ CharacterSchema = new SimpleSchema({
       return 100
     }
   },
-
   createdAt: {
     type: Date,
     label: "Created At",
@@ -25,15 +24,18 @@ CharacterSchema = new SimpleSchema({
   createdBy: {
     type: String,
     label: "Created By",
-    autoform: { type: 'hidden'}
+    autoform: { type: 'hidden'},
+    autoValue: function() {
+      return Meteor.userId()
+    },
   }
 });
 
 Meteor.methods({
   newCharacter: function(name){
     check(name, String);
-    var currentUserId = Meteor.userId();
-    var thisCharacterId = Characters.insert({name: name, createdBy: currentUserId}, Meteor.call('redirectToLobby'));
+    var currentUserId = Meteor.userId()
+    var thisCharacterId = Characters.insert({name: name}, Meteor.call('redirectToLobby'));
     Meteor.users.update(currentUserId, { $set: {characterId: thisCharacterId }});
   },
   redirectToLobby: function(){

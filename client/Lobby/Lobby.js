@@ -1,5 +1,10 @@
 Meteor.subscribe('userStatus');
 
+Template.Lobby.onCreated(function() {
+  this.subscribe("userBattleRequestsReceived");
+
+});
+
 Template.Lobby.helpers({
  'characters'(){
    var currentUserId = Meteor.userId()
@@ -10,12 +15,24 @@ Template.Lobby.helpers({
    return Meteor.users.find({ _id: { $ne: currentUserId } } )
  },
  'battleRequest'() {
-   var currentUser = Meteor.user();
-   userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
-   battleRequestUser = Meteor.users.find(userBattleRequestsId);
-   return battleRequestUser
+   console.log(BattleRequest.find().fetch())
+
+  //  var currentUser = Meteor.user();
+  //  var array = [];
+  //  userBattleRequests = currentUser.battleRequestObject;
+  //  console.log(userBattleRequests)
+  //  for (var i = 0; i < userBattleRequests.length; i++) {
+  //    array.push(userBattleRequests[i]);
+  //    console.log(userBattleRequests[i].battleRequestFrom);
+  //  }
+  //  console.log(array);
+  //  return array;
  }
 });
+
+Template.User.onCreated(function() {
+  this.subscribe('characters');
+})
 
 Template.User.helpers({
   'character'() {
@@ -49,15 +66,10 @@ Template.User.helpers({
 
 Template.UserAcceptFight.helpers({
   'character'() {
-    var currentUser = Meteor.user();
-    var array = [];
-    userBattleRequests = currentUser.battleRequestObject;
-    for(var i = 0; i < userBattleRequests.length; i++) {
-      array.push(userBattleRequests[i]);
-      console.log(userBattleRequests);
-    }
-    return array;
-    console.log(array);
+    var characterId = this.characterId;
+    var char = Characters.findOne( characterId );
+
+    return char.name;
   }
 });
 
@@ -76,7 +88,7 @@ Template.Lobby.events({
     var senderId = Meteor.userId();
     Session.set('selectedPlayer', recipientId);
     var recipientPlayer = Session.get('selectedPlayer');
-    Meteor.call('addPendingBattle', recipientId, senderId)
+    Meteor.call('newBattleRequest', recipientId)
   }
 })
 
