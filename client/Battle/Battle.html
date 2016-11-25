@@ -1,0 +1,16 @@
+<template name="Battle">
+
+  <div class="host">
+    {{> Character host}}
+  </div>
+
+  <div class="opponent">
+    {{> Character opponent}}
+  </div>
+
+</template>
+
+<template name='Character'>
+  <h1>{{name}}</h1>
+  <h1>{{hp}} HP</h1>
+</template>

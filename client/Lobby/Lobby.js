@@ -30,21 +30,7 @@ Template.User.helpers({
     if(playerId == selectedPlayer) {
       return "selected"
     }
-  },
-
-  // 'pendingClass'() {
-  //   var playerIdInList = this._id;
-  //   var currentUser = Meteor.users.findOne(Meteor.userId());
-  //
-  //   var requestSenderId = currentUser.battleRequestObject.battleRequestFrom
-  //   // console.log("user object is " + currentUser)
-  //   // console.log("current user is " + currentUserId)
-  //   // console.log("player in list is " + playerIdInList);
-  //   // console.log("request sender is " + requestSenderId);
-  //   if (playerIdInList === requestSenderId) {
-  //     return "pending-battle-invite"
-  //   }
-  // }
+  }
 });
 
 Template.UserAcceptFight.helpers({
@@ -57,14 +43,12 @@ Template.UserAcceptFight.helpers({
 });
 
 Template.UserAcceptFight.events({
-  'click .pending-battle-invite'() {
+  'click .accept-battle-invite'() {
     var currentUser = Meteor.user();
-    userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
-    opponent = Meteor.users.find(userBattleRequestsId);
-    FlowRouter.go('fight')
+    var opponentId = currentUser.battleRequestObject.battleRequestFrom;
+    Meteor.call('newBattle', currentUser._id, opponentId);
   }
 });
-
 
 Template.Lobby.events({
   'click .player button'() {
@@ -74,13 +58,4 @@ Template.Lobby.events({
     var recipientPlayer = Session.get('selectedPlayer');
     Meteor.call('addPendingBattle', recipientId, senderId)
   }
-})
-
-// Template.userPill.labelClass = function() {
-//   if (this.status.idle)
-//     return "label-warning"
-//   else if (this.status.online)
-//     return "label-success"
-//   else
-//     return "label-default"
-// };
+});
