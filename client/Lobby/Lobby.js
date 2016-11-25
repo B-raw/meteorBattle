@@ -7,7 +7,7 @@ Template.Lobby.helpers({
  },
  'usersOnline': function() {
    var currentUserId = Meteor.userId()
-   return Meteor.users.find({ "status.online": true, _id: { $ne: currentUserId } }, )
+   return Meteor.users.find({ _id: { $ne: currentUserId } } )
  }
 });
 
@@ -15,7 +15,7 @@ Template.User.helpers({
   'character'(){
     var characterId = this.characterId;
     var char = Characters.findOne( characterId );
-    
+
     return char.name;
   }
 });
