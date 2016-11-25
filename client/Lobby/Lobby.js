@@ -25,7 +25,12 @@ Template.Lobby.events({
         Session.set('selectedPlayer', this._id);
         var selectedPlayer = Session.get('selectedPlayer');
         console.log(selectedPlayer);
-    }
+    },
+    'click .player .button': function(){
+          Session.set('selectedPlayer', this._id);
+          var selectedPlayer = Session.get('selectedPlayer');
+          console.log(selectedPlayer);
+      }
 })
 
 // Template.userPill.labelClass = function() {
