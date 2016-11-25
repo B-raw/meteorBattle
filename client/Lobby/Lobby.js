@@ -1,13 +1,19 @@
 Meteor.subscribe('userStatus');
 
 Template.Lobby.helpers({
- 'characters': function(){
+ 'characters'(){
    var currentUserId = Meteor.userId()
    return Characters.find({ createdBy: { $ne: currentUserId }});
  },
- 'usersOnline': function() {
+ 'usersOnline'() {
    var currentUserId = Meteor.userId()
    return Meteor.users.find({ _id: { $ne: currentUserId } } )
+ },
+ 'battleRequest'() {
+   var currentUser = Meteor.user();
+   userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
+   battleRequestUser = Meteor.users.find(userBattleRequestsId);
+   return battleRequestUser
  }
 });
 
@@ -24,13 +30,41 @@ Template.User.helpers({
     if(playerId == selectedPlayer) {
       return "selected"
     }
-    var req = Meteor.users.findOne(playerId);
-    
-    console.log(req.battleRequestObject.battleRequestFrom);
-    // .battleRequestObject.battleRequestFrom
-    console.log(req);
+  },
+
+  // 'pendingClass'() {
+  //   var playerIdInList = this._id;
+  //   var currentUser = Meteor.users.findOne(Meteor.userId());
+  //
+  //   var requestSenderId = currentUser.battleRequestObject.battleRequestFrom
+  //   // console.log("user object is " + currentUser)
+  //   // console.log("current user is " + currentUserId)
+  //   // console.log("player in list is " + playerIdInList);
+  //   // console.log("request sender is " + requestSenderId);
+  //   if (playerIdInList === requestSenderId) {
+  //     return "pending-battle-invite"
+  //   }
+  // }
+});
+
+Template.UserAcceptFight.helpers({
+  'character'() {
+    var characterId = this.characterId;
+    var char = Characters.findOne( characterId );
+
+    return char.name;
+  },
+});
+
+Template.UserAcceptFight.events({
+  'click .pending-battle-invite'() {
+    var currentUser = Meteor.user();
+    userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
+    opponent = Meteor.users.find(userBattleRequestsId);
+    FlowRouter.go('fight')
   }
 });
+
 
 Template.Lobby.events({
   'click .player button'() {
