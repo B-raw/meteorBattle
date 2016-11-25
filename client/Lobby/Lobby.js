@@ -24,6 +24,11 @@ Template.User.helpers({
     if(playerId == selectedPlayer) {
       return "selected"
     }
+    var req = Meteor.users.findOne(playerId);
+    
+    console.log(req.battleRequestObject.battleRequestFrom);
+    // .battleRequestObject.battleRequestFrom
+    console.log(req);
   }
 });
 
@@ -33,8 +38,6 @@ Template.Lobby.events({
     var senderId = Meteor.userId();
     Session.set('selectedPlayer', recipientId);
     var recipientPlayer = Session.get('selectedPlayer');
-    console.log(recipientId);
-    console.log(senderId)
     Meteor.call('addPendingBattle', recipientId, senderId)
   }
 })
