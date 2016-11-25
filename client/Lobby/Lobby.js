@@ -20,7 +20,13 @@ Template.User.helpers({
   }
 });
 
-Template
+Template.Lobby.events({
+  'click .player': function(){
+        Session.set('selectedPlayer', this._id);
+        var selectedPlayer = Session.get('selectedPlayer');
+        console.log(selectedPlayer);
+    }
+})
 
 // Template.userPill.labelClass = function() {
 //   if (this.status.idle)
