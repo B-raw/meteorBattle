@@ -12,25 +12,31 @@ Template.Lobby.helpers({
 });
 
 Template.User.helpers({
-  'character'(){
+  'character'() {
     var characterId = this.characterId;
     var char = Characters.findOne( characterId );
 
     return char.name;
+  },
+  'selectedClass'() {
+    var playerId = this._id;
+    var selectedPlayer = Session.get('selectedPlayer');
+    if(playerId == selectedPlayer) {
+      return "selected"
+    }
   }
 });
 
 Template.Lobby.events({
-  'click .player': function(){
-        Session.set('selectedPlayer', this._id);
-        var selectedPlayer = Session.get('selectedPlayer');
-        console.log(selectedPlayer);
-    },
-    'click .player .button': function(){
-          Session.set('selectedPlayer', this._id);
-          var selectedPlayer = Session.get('selectedPlayer');
-          console.log(selectedPlayer);
-      }
+  'click .player button'() {
+    var recipientId = this._id
+    var senderId = Meteor.userId();
+    Session.set('selectedPlayer', recipientId);
+    var recipientPlayer = Session.get('selectedPlayer');
+    console.log(recipientId);
+    console.log(senderId)
+    Meteor.call('addPendingBattle', recipientId, senderId)
+  }
 })
 
 // Template.userPill.labelClass = function() {
