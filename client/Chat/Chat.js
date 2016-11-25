@@ -14,7 +14,7 @@ Template.Chat.events({
   'keydown input#message'(event) {
     if (event.which == 13) { // 13 is the enter key event
       if (Meteor.user()) {
-        var name = Meteor.user().username;
+        var name = Meteor.user().username || Meteor.user().emails[0].address;
         var message = document.getElementById('message');
         if (message.value != '') {
           var date = new Date();

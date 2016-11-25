@@ -59,7 +59,7 @@ describe('Chat feature', function(){
     });
 
 
-    it('displays users messages @watch', function(){
+    it('displays usernames and messages', function(){
       var text = sendText('hello', hostBrowser);
       expect(getText(hostBrowser)).to.equal('hello');
       expect(getUser(hostBrowser)).to.equal('Pikachu@pika.com');
