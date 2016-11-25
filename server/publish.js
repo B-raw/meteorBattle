@@ -3,5 +3,5 @@ Meteor.publish('characters', function(){
 });
 
 Meteor.publish("userStatus", function() {
-  return Meteor.users.find();
+  return Meteor.users.find({"status.online": true});
 });
