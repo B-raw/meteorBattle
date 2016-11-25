@@ -9,6 +9,6 @@ Meteor.methods({
     Accounts.createUser({email: email, password: password});
   },
   'addPendingBattle'(recipientId, senderId) {
-    Meteor.users.update(recipientId, { $set: { battleRequestObject: {battleRequest: "pending-battle-invite", battleRequestFrom: senderId }}});
+    Meteor.users.update(recipientId, { $addToSet: { battleRequestObject: {battleRequest: "pending-battle-invite", battleRequestFrom: senderId }}});
   }
 });

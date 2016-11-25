@@ -49,11 +49,16 @@ Template.User.helpers({
 
 Template.UserAcceptFight.helpers({
   'character'() {
-    var characterId = this.characterId;
-    var char = Characters.findOne( characterId );
-
-    return char.name;
-  },
+    var currentUser = Meteor.user();
+    var array = [];
+    userBattleRequests = currentUser.battleRequestObject;
+    for(var i = 0; i < userBattleRequests.length; i++) {
+      array.push(userBattleRequests[i]);
+      console.log(userBattleRequests);
+    }
+    return array;
+    console.log(array);
+  }
 });
 
 Template.UserAcceptFight.events({
@@ -64,7 +69,6 @@ Template.UserAcceptFight.events({
     FlowRouter.go('fight')
   }
 });
-
 
 Template.Lobby.events({
   'click .player button'() {
