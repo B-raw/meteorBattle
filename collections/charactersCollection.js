@@ -31,11 +31,26 @@ CharacterSchema = new SimpleSchema({
 
 Meteor.methods({
   newCharacter: function(name){
-    check(name, String)
-
+    check(name, String);
     var currentUserId = Meteor.userId();
+    var thisCharacterId = Characters.insert({name: name, createdBy: currentUserId}, Meteor.call('redirectToLobby'));
+    Meteor.users.update(currentUserId, { $set: {characterId: thisCharacterId }});
+  },
+  redirectToLobby: function(){
+    FlowRouter.go('lobby');
+  }
+});
 
-    Characters.insert({name: name, createdBy: currentUserId});
+Meteor.methods({
+  toggleMenuItem: function(id, currentState){
+    Recipes.update(id, {
+      $set: {
+        inMenu: !currentState
+      }
+    });
+  },
+  deleteRecipe: function(id) {
+    Recipes.remove(id);
   }
 });
 

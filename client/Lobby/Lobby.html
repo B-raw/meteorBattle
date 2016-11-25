@@ -1,7 +1,13 @@
 <template name="Lobby">
   <ul>
-  {{ #each characters }}
-    <li class="player">{{ name }}</li>
-  {{ /each }}
+    {{#each usersOnline }}
+      {{> User }}
+    {{/each}}
   </ul>
+</template>
+
+<template name="User">
+  <li class="player">
+    {{character}}
+  </li>
 </template>

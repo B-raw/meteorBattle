@@ -44,7 +44,7 @@ describe('Chat feature', function(){
       getBrowser(0).setValue('input#message', 'hello');
       getBrowser(0).keys("\uE006"); //press ENTER
       getBrowser(0).waitForExist('ul', 2000);
-      expect(getBrowser(0).getValue('li#message0')).to.equal('hello');
+      expect(getBrowser(0).getValue('li.message:nth-of-type(1)')).to.equal('hello');
       // console.log(getBrowser(0).hasFocus('input#message'));
     });
   });
