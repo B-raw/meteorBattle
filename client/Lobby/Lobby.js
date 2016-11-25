@@ -19,6 +19,9 @@ Template.User.helpers({
     return char.name;
   }
 });
+
+Template
+
 // Template.userPill.labelClass = function() {
 //   if (this.status.idle)
 //     return "label-warning"
