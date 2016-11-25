@@ -1,0 +1,17 @@
+<template name='Chat'>
+  <br>
+  <input type="text" id="message" placeholder="enter a message">
+  {{#if messages}}
+    <ul>
+    {{#each messages}}
+      <li class="message">
+        <p class="message_header">
+          <strong>{{name}}</strong> - {{formatTime(createdAt)}}
+        </p>
+        <p class="message_text">{{text}}</p>
+      </li>
+
+    {{/each}}
+    </ul>
+  {{/if}}
+</template>

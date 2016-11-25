@@ -1,18 +1,35 @@
-function getBrowser(i) {
-  return browser.instances[i];
-}
+var user1, user2;
+var hostBrowser, opponentBrowser;
+
 function signUp(email, password){
   server.call('user.signup', email, password);
 }
-function signIn(email, password, browserId){
-  getBrowser(browserId).url('http://localhost:3000');
-  getBrowser(browserId).execute(function(email, password){
+function signIn(browserName, email, password){
+  browserName.url('http://localhost:3000');
+  browserName.execute(function(email, password){
     Meteor.loginWithPassword(email, password);
   }, email, password);
 }
-function signUpAndSignIn(email, password, browserId){
+function signUpAndSignIn(browserName, email, password){
   signUp(email, password);
-  signIn(email, password, browserId);
+  signIn(browserName, email, password);
+}
+
+function sendText(text, browserName) {
+  browserName.url('http://localhost:3000/chat');
+  browserName.setValue('input#message', text);
+  browserName.keys("\uE006"); //press ENTER
+  browserName.waitForExist('li', 2000);
+}
+
+function getText(browserName) {
+  var messageLi = browserName.element('li.message:nth-of-type(1)');
+  return messageLi.getText('p.message_text');
+}
+
+function getUser(browserName) {
+  var messageLi = browserName.element('li.message:nth-of-type(1)');
+  return messageLi.getText('p.message_header strong');
 }
 
 describe('Chat feature', function(){
@@ -25,27 +42,31 @@ describe('Chat feature', function(){
         Package['xolvio:cleaner'].resetDatabase();
       });
 
-      var user1 = {
+      user1 = {
         email: 'Pikachu@pika.com',
         password: 'pikapika'
       }
-      var user2 = {
+      user2 = {
         email: 'tata@tata.com',
         password: 'tatatata'
       }
 
-      signUpAndSignIn(user1.email, user1.password, 0);
-      signUpAndSignIn(user2.email, user2.password, 1);
+      hostBrowser = browser.instances[0];
+      opponentBrowser = browser.instances[1];
+
+      signUpAndSignIn(hostBrowser, user1.email, user1.password);
+      signUpAndSignIn(opponentBrowser, user2.email, user2.password);
     });
 
 
-    it('displays users messages', function(){
-      browser.url('http://localhost:3000/chat');
-      getBrowser(0).setValue('input#message', 'hello');
-      getBrowser(0).keys("\uE006"); //press ENTER
-      getBrowser(0).waitForExist('ul', 2000);
-      expect(getBrowser(0).getValue('li.message:nth-of-type(1)')).to.equal('hello');
-      // console.log(getBrowser(0).hasFocus('input#message'));
+    it('displays users messages @watch', function(){
+      var text = sendText('hello', hostBrowser);
+      expect(getText(hostBrowser)).to.equal('hello');
+      expect(getUser(hostBrowser)).to.equal('Pikachu@pika.com');
+
+      var text2 = sendText('this is user 2', opponentBrowser);
+      expect(getText(opponentBrowser)).to.equal('this is user 2');
+      expect(getUser(hostBrowser)).to.equal('tata@tata.com');
     });
   });
 

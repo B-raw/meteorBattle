@@ -50,7 +50,7 @@ describe('sign up and display character', function() {
     expect(lobbyTextOpponent).to.equal("Pikachu");
   });
 
-  it("it doesn't display the logged in users character @watch", function() {
+  it("it doesn't display the logged in users character", function() {
     opponentBrowser.click('#login-name-link').click('#login-buttons-logout');
 
     var lobbyTextHost = hostBrowser.getText('ul');
