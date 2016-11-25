@@ -9,3 +9,7 @@ Meteor.publish("userStatus", function() {
 Meteor.publish('messages', function(){
   return Messages.find({});
 });
+
+// Meteor.publish("pendingBattleInvites", function() {
+//   return Meteor.users.find({})
+// });

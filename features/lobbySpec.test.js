@@ -16,7 +16,7 @@ function signUpAndSignIn(browserName, email, password){
 
 describe('sign up and display character', function() {
   beforeEach(function() {
-
+    // this creates two new players, signs them in, creates their characters
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
     });
@@ -35,14 +35,15 @@ describe('sign up and display character', function() {
     opponentBrowser.waitForExist("form.newCharacterForm", 4000);
     opponentBrowser.setValue( '[name="name"]', 'Snorlax' )
            .submitForm( 'form.newCharacterForm' );
-  });
-
-  it('it can display a character name in the lobby', function() {
 
     hostBrowser.url('http://localhost:3000/lobby')
                .waitForExist('.player', 800);
     opponentBrowser.url('http://localhost:3000/lobby')
                    .waitForExist('.player', 800);
+  });
+
+  it('it can display a character name in the lobby', function() {
+
     var lobbyTextHost = hostBrowser.getText('li:nth-of-type(1)');
     var lobbyTextOpponent = opponentBrowser.getText('li:nth-of-type(1)');
 
@@ -56,4 +57,23 @@ describe('sign up and display character', function() {
     var lobbyTextHost = hostBrowser.getText('ul');
     expect(lobbyTextHost).to.equal("");
   });
+
+  it("it can select a player to battle and they receive a invitation @watch", function() {
+    hostBrowser.click('button .send-battle-invite')
+    var lobbyTextHost = hostBrowser.getText('#pending-battle-invite')
+    var lobbyTextOpponent = opponentBrowser.getText('#battle-invite')
+    expect(lobbyTextOpponent).to.equal('Accept Battle')
+
+  });
+
+  // it("opponent can accept invitation to battle", function() {
+  //   hostBrowser.click('li:nth-of-type(1)').click('send-battle-invite')
+  //   host
+  //
+  //
+  //   opponentBrowser.click('#accept-battle-invite')
+  //
+  //   expect(hostTextOpponent).to.equal('Pikachu wants to fight you')
+  //
+  // });
 });
