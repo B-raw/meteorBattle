@@ -20,6 +20,20 @@ Template.Lobby.helpers({
  }
 });
 
+// on click sends a fight request
+Template.Lobby.events({
+  'click .player button'() {
+    var recipientId = this._id
+    var senderId = Meteor.userId();
+    Session.set('selectedPlayer', recipientId);
+    var recipientPlayer = Session.get('selectedPlayer');
+    Meteor.call('addPendingBattle', recipientId, senderId)
+  },
+  'click #edit-character-option'() {
+    Session.set('editMode', !Session.get('editMode'));
+  }
+});
+
 Template.User.helpers({
   // Returns the character name for a given online user
   'character'() {
@@ -52,15 +66,5 @@ Template.UserAcceptFight.events({
     var currentUser = Meteor.user();
     var opponentId = currentUser.battleRequestObject.battleRequestFrom;
     Meteor.call('newBattle', currentUser._id, opponentId);
-  }
-});
-// on click sends a fight request
-Template.Lobby.events({
-  'click .player button'() {
-    var recipientId = this._id
-    var senderId = Meteor.userId();
-    Session.set('selectedPlayer', recipientId);
-    var recipientPlayer = Session.get('selectedPlayer');
-    Meteor.call('addPendingBattle', recipientId, senderId)
   }
 });

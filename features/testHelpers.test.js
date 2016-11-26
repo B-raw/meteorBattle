@@ -15,5 +15,17 @@ export function getBrowser(i) {
 export function signUpAndSignIn(browserName, email, password) {
   signUp(email, password);
   signIn(browserName, email, password);
+}
+
+export function cleanDatabase() {
+  server.execute(function () {
+    Package['xolvio:cleaner'].resetDatabase();
+  });
+}
+
+export function createCharacter(browserName, characterName) {
+  browserName.waitForExist(".newCharacterForm");
+  browserName.setValue( '[name="name"]', characterName )
+         .submitForm( '.newCharacterForm' );
 
 }

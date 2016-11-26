@@ -1,6 +1,9 @@
 <template name="Lobby">
   <section>
-    <button class="change-character">Change My Character</button>
+    <button id="edit-character-option">Edit My Character</button>
+    {{#if $.Session.get 'editMode'}}
+      {{> EditCharacterForm}}
+    {{/if}}
   </section>
   <h2>Battle Requests</h2>
     <ul>

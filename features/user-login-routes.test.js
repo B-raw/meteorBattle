@@ -1,12 +1,10 @@
-import { signUp, signIn, getBrowser } from './testHelpers.test'
+import { signUp, signIn, getBrowser, cleanDatabase } from './testHelpers.test'
 
 describe("User Login", function () {
 
   beforeEach(function(){
     server.call('logout');
-    server.execute(function () {
-      Package['xolvio:cleaner'].resetDatabase();
-    });
+    cleanDatabase();
   });
 
   describe("New user", function () {
