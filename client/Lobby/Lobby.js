@@ -1,14 +1,17 @@
 Meteor.subscribe('userStatus');
 
 Template.Lobby.helpers({
+  // Returns characters for all users except current user
  'characters'(){
    var currentUserId = Meteor.userId()
    return Characters.find({ createdBy: { $ne: currentUserId }});
  },
+ // Returns all users except current user
  'usersOnline'() {
    var currentUserId = Meteor.userId()
    return Meteor.users.find({ _id: { $ne: currentUserId } } )
  },
+ // Returns the requester for a given request you've received
  'battleRequest'() {
    var currentUser = Meteor.user();
    userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
@@ -18,12 +21,14 @@ Template.Lobby.helpers({
 });
 
 Template.User.helpers({
+  // Returns the character name for a given online user
   'character'() {
     var characterId = this.characterId;
     var char = Characters.findOne( characterId );
 
     return char.name;
   },
+  // changes the class of the fight request button
   'selectedClass'() {
     var playerId = this._id;
     var selectedPlayer = Session.get('selectedPlayer');
@@ -32,7 +37,7 @@ Template.User.helpers({
     }
   }
 });
-
+// Display name of the character who's challenged you
 Template.UserAcceptFight.helpers({
   'character'() {
     var characterId = this.characterId;
@@ -41,7 +46,7 @@ Template.UserAcceptFight.helpers({
     return char.name;
   },
 });
-
+// on click 'accept', newBattle called in battlesCollection with user and requester
 Template.UserAcceptFight.events({
   'click .accept-battle-invite'() {
     var currentUser = Meteor.user();
@@ -49,7 +54,7 @@ Template.UserAcceptFight.events({
     Meteor.call('newBattle', currentUser._id, opponentId);
   }
 });
-
+// on click sends a fight request
 Template.Lobby.events({
   'click .player button'() {
     var recipientId = this._id
