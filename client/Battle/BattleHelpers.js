@@ -18,10 +18,15 @@ BattleHelpers = {
   },
 
   throwMeteorTo: function(targetCharacter){
-    console.log(targetCharacter);
     if (BattleHelpers.currentAttackerIs(BattleHelpers.currentAttacker())) {
-      var hp = targetCharacter.hp;
-      Characters.update(targetCharacter._id, { hp: hp-10 })
+      var damage = BattleHelpers.randomDamage(5, 15);
+      Characters.update({_id: targetCharacter._id}, {$inc: { hp: (-1 * damage) }})
     }
+  },
+
+  randomDamage(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }

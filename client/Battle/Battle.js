@@ -31,7 +31,7 @@ Template.Battle.helpers({
 });
 
 Template.BattleControls.events({
-  'click #meteor_attack'(){
+  'click input#meteor_attack'(){
     var opponent = this; //'this' is passed when rendering template
     BattleHelpers.throwMeteorTo(opponent);
   }
