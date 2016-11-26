@@ -6,14 +6,17 @@ Template.Lobby.onCreated(function() {
 });
 
 Template.Lobby.helpers({
+  // Returns characters for all users except current user
  'characters'(){
    var currentUserId = Meteor.userId()
    return Characters.find({ createdBy: { $ne: currentUserId }});
  },
+ // Returns all users except current user
  'usersOnline'() {
    var currentUserId = Meteor.userId()
    return Meteor.users.find({ _id: { $ne: currentUserId } } )
  },
+ // Returns the requester for a given request you've received
  'battleRequest'() {
    console.log(BattleRequest.find().fetch())
 
@@ -35,35 +38,23 @@ Template.User.onCreated(function() {
 })
 
 Template.User.helpers({
+  // Returns the character name for a given online user
   'character'() {
     var characterId = this.characterId;
     var char = Characters.findOne( characterId );
 
     return char.name;
   },
+  // changes the class of the fight request button
   'selectedClass'() {
     var playerId = this._id;
     var selectedPlayer = Session.get('selectedPlayer');
     if(playerId == selectedPlayer) {
       return "selected"
     }
-  },
-
-  // 'pendingClass'() {
-  //   var playerIdInList = this._id;
-  //   var currentUser = Meteor.users.findOne(Meteor.userId());
-  //
-  //   var requestSenderId = currentUser.battleRequestObject.battleRequestFrom
-  //   // console.log("user object is " + currentUser)
-  //   // console.log("current user is " + currentUserId)
-  //   // console.log("player in list is " + playerIdInList);
-  //   // console.log("request sender is " + requestSenderId);
-  //   if (playerIdInList === requestSenderId) {
-  //     return "pending-battle-invite"
-  //   }
-  // }
+  }
 });
-
+// Display name of the character who's challenged you
 Template.UserAcceptFight.helpers({
   'character'() {
     var characterId = this.characterId;
@@ -72,16 +63,16 @@ Template.UserAcceptFight.helpers({
     return char.name;
   }
 });
-
+// on click 'accept', newBattle called in battlesCollection with user and requester
 Template.UserAcceptFight.events({
-  'click .pending-battle-invite'() {
+  'click .accept-battle-invite'() {
     var currentUser = Meteor.user();
-    userBattleRequestsId = currentUser.battleRequestObject.battleRequestFrom;
-    opponent = Meteor.users.find(userBattleRequestsId);
-    FlowRouter.go('fight')
+    var opponentId = currentUser.battleRequestObject.battleRequestFrom;
+    Meteor.call('newBattle', currentUser._id, opponentId);
   }
 });
 
+// on click sends a fight request
 Template.Lobby.events({
   'click .player button'() {
     var recipientId = this._id
@@ -90,13 +81,4 @@ Template.Lobby.events({
     var recipientPlayer = Session.get('selectedPlayer');
     Meteor.call('newBattleRequest', recipientId)
   }
-})
-
-// Template.userPill.labelClass = function() {
-//   if (this.status.idle)
-//     return "label-warning"
-//   else if (this.status.online)
-//     return "label-success"
-//   else
-//     return "label-default"
-// };
+});

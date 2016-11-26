@@ -6,8 +6,16 @@ Meteor.publish("userStatus", function() {
   return Meteor.users.find({"status.online": true});
 });
 
+
 Meteor.publish("userBattleRequestsReceived", function() {
   return BattleRequests.find({ recipient: this.userId });
+
+Meteor.publish('messages', function(){
+  return Messages.find({});
+});
+
+Meteor.publish('battles', function(){
+  return Battles.find({});
 });
 
 // Meteor.publish("pendingBattleInvites", function() {
