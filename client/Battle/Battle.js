@@ -10,26 +10,30 @@ Template.Battle.helpers({
   'opponent'(){
     var host = Meteor.user();
     var battle = Battles.findOne(host.battleId);
-    var opponentId = host._id === battle.fighter1 ? battle.fighter2 : battle.fighter1;
-    var char = Characters.findOne({ createdBy: opponentId });
-    return char;
+    if (battle) {
+      var opponentId = host._id === battle.fighter1 ? battle.fighter2 : battle.fighter1;
+      var char = Characters.findOne({ createdBy: opponentId });
+      return char;
+    }
   },
 
-  'battle'(){
-    var host = Meteor.user();
-    var battle = Battles.findOne(host.battleId);
-    return battle;
-  },
-
-  'currentAttackerIs'(hostCharacter, battle){
-    var currentAttacker = Characters.findOne( { createdBy: battle.currentAttackerId } );
+  'currentAttackerIs'(hostCharacter){
+    var currentAttacker = BattleHelpers.currentAttacker();
     return (currentAttacker._id === hostCharacter._id)
   },
+
+  'currentAttacker'(){
+    return BattleHelpers.currentAttacker();
+  },
+
+  'battleLoaded'(){
+    return BattleHelpers.battle() !== undefined
+  }
 });
 
-Template.Battle.events({
+Template.BattleControls.events({
   'click #meteor_attack'(){
-    // console.log(Template.Battle);
-
+    var opponent = this; //'this' is passed when rendering template
+    console.log(this);
   }
 });

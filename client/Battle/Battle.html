@@ -1,26 +1,31 @@
 <template name="Battle">
 
-  <div class="characters">
+  {{#if battleLoaded}}
+    <h2>{{currentAttacker.name}}'s turn</h2>
 
-    <div class="char_container">
-      <div class="host">
-        {{> Character host}}
-      </div>
-    </div>
+    <div class="characters">
 
-    <div class="char_container">
-      <div class="opponent">
-        {{> Character opponent}}
-      </div>
-
-      {{#if currentAttackerIs host battle}}
-        <div class="attacks">
-          {{> BattleControls }}
+      <div class="char_container">
+        <div class="host">
+          {{> Character host}}
         </div>
-      {{/if}}
+      </div>
+
+      <div class="char_container">
+        <div class="opponent">
+          {{> Character opponent}}
+        </div>
+
+        {{#if currentAttackerIs host}}
+          <div class="attacks">
+            {{> BattleControls opponent}}
+          </div>
+        {{/if}}
+      </div>
+
     </div>
 
-  </div>
+  {{/if}}
 
 </template>
 
