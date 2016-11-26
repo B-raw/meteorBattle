@@ -14,6 +14,7 @@
   letter-spacing: 0.2em;
   font-weight: normal;
   text-align: center;
+  margin: 0;
 }
 
 .billboard h2 {
@@ -21,6 +22,7 @@
   font-size: 2em;
   letter-spacing: 0.2em;
   text-align: center;
+  margin: 0;
 }
 
 .HomeLogin {

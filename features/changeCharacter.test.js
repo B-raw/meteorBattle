@@ -33,6 +33,22 @@ describe("New Character Form @watch", function () {
     var doesFormExist = hostBrowser.waitForExist(".editCharacterForm");
     expect(doesFormExist).to.equal(true);
 
+    var getPikachu = server.execute( function() {
+     return Characters.findOne( { name: "Pikachu" } );
+    });
+
+    var PikachuId = getPikachu._id
+
+    hostBrowser.setValue( '[name="name"]', 'Rick Astley' )
+               .submitForm( '.editCharacterForm' );
+
+    var getCharacter = server.execute( function() {
+     return Characters.findOne( {name: "Rick Astley"} );
+    });
+
+    expect( getCharacter.name ).to.equal("Rick Astley");
+    expect( getCharacter._id ).to.equal(PikachuId);
+
   });
 
 });

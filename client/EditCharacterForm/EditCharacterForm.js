@@ -2,6 +2,6 @@ Template.EditCharacterForm.events({
   'submit .editCharacterForm'(event){
     event.preventDefault();
     var name = event.target.name.value;
-    Meteor.call('newCharacter', name);
+    Meteor.call('editCharacter', name);
   }
 });
