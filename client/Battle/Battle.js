@@ -10,28 +10,8 @@ Template.Battle.helpers({
   'opponent'(){
     var host = Meteor.user();
     var battle = Battles.findOne(host.battleId);
-    var fighters = battle.fighters;
-    var opponentId = host._id === fighters[0] ? fighters[1] : fighters[0];
-    var opponent = Meteor.users.findOne(opponentId);
-    var char = Characters.findOne({ createdBy: opponent._id });
+    var opponentId = host._id === battle.fighter1 ? battle.fighter2 : battle.fighter1;
+    var char = Characters.findOne({ createdBy: opponentId });
     return char;
   }
 });
-//
-// Template.BattleControls.events({
-//   'click .attack': function() {
-//     var host = Meteor.user();
-//     var battle = Battles.findOne(host.battleId);
-//     var fighters = battle.fighters;
-//     var opponentId = host._id === fighters[0] ? fighters[1] : fighters[0];
-//     var opponent = Meteor.users.findOne(opponentId);
-//     var selectedCharacter = Characters.findOne({ createdBy: opponent._id });
-//     Meteor.call('updateHealth', selectedCharacter, -10);
-//   }
-// });
-//
-// Meteor.methods({
-//   'updateHealth': function(selectedCharacter, hpValue) {
-//     Characters.update( { _id: selectedCharacter, { $inc: { hp: hpValue }}});
-//   }
-// });
