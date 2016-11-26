@@ -1,9 +1,9 @@
 <template name="Battle">
 
   {{#if battleLoaded}}
-    <h2>{{currentAttacker.name}}'s turn</h2>
 
     <div class="characters">
+      <h2>{{currentAttacker.name}}'s turn</h2>
 
       <div class="char_container">
         <div class="host">
@@ -15,11 +15,11 @@
         <div class="opponent">
           {{> Character opponent}}
         </div>
+      </div>
 
+      <div class="attacks">
         {{#if currentAttackerIs host}}
-          <div class="attacks">
-            {{> BattleControls opponent}}
-          </div>
+          {{> BattleControls opponent}}
         {{/if}}
       </div>
 
@@ -35,5 +35,7 @@
 </template>
 
 <template name="BattleControls">
-  <input id='meteor_attack' class="attack" type="button" value="Throw Meteor">
+  <button id='meteor_attack' class="attack">
+    <i class="fa fa-bomb" aria-hidden="true"> <span>Throw Meteor</span></i>
+  </button>
 </template>
