@@ -13,9 +13,11 @@
         {{> Character opponent}}
       </div>
 
-      <div class="attacks">
-        {{> BattleControls }}
-      </div>
+      {{#if currentAttackerIs host battle}}
+        <div class="attacks">
+          {{> BattleControls }}
+        </div>
+      {{/if}}
     </div>
 
   </div>
@@ -28,5 +30,5 @@
 </template>
 
 <template name="BattleControls">
-  <input class="attack" type="button" value="attack">
+  <input id='meteor_attack' class="attack" type="button" value="Throw Meteor">
 </template>

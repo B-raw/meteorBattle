@@ -2,7 +2,7 @@ Battles = new Mongo.Collection('battles');
 
 Meteor.methods({
   newBattle: function(hostId, opponentId){
-    var battleId = Battles.insert({ fighter1: hostId, fighter2: opponentId });
+    var battleId = Battles.insert({ fighter1: hostId, fighter2: opponentId, currentAttackerId: opponentId });
     Meteor.users.update(hostId, { $set: {battleId: battleId }});
     Meteor.users.update(opponentId, { $set: {battleId: battleId }});
     Meteor.users.update(hostId, { $unset: { battleRequestObject: "" } });
