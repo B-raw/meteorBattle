@@ -18,8 +18,7 @@ Template.Battle.helpers({
   },
 
   'currentAttackerIs'(hostCharacter){
-    var currentAttacker = BattleHelpers.currentAttacker();
-    return (currentAttacker._id === hostCharacter._id)
+    return BattleHelpers.currentAttackerIs(hostCharacter);
   },
 
   'currentAttacker'(){
@@ -34,6 +33,6 @@ Template.Battle.helpers({
 Template.BattleControls.events({
   'click #meteor_attack'(){
     var opponent = this; //'this' is passed when rendering template
-    console.log(this);
+    BattleHelpers.throwMeteorTo(opponent);
   }
 });

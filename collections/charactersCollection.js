@@ -1,5 +1,11 @@
 Characters = new Mongo.Collection('characters');
 
+Characters.allow({
+  update: function(userId, doc) {
+    return !!userId;
+  }
+});
+
 CharacterSchema = new SimpleSchema({
   name: {
     type: String,
