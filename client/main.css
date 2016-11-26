@@ -1,0 +1,102 @@
+/* CSS declarations go here */
+
+
+/* FONTS
+  font-family: 'Six Caps', sans-serif;
+  font-family: 'Dosis', sans-serif;
+*/
+
+/*HOMEPAGE*/
+.billboard h1 {
+  padding-top: 7%;
+  font-family: 'Six Caps', sans-serif;
+  font-size: 120px;
+  letter-spacing: 0.2em;
+  font-weight: normal;
+  text-align: center;
+}
+
+.billboard h2 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 2em;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+.HomeLogin {
+  padding-top: 5%;
+  text-align: center;
+  font-size: 25px;
+}
+
+.HomeLogin a#login-sign-in-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+
+/* HEADER */
+
+header {
+  background-color: lightgrey;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 115px;
+}
+
+header h1 {
+  margin: 10px;
+  font-family: 'Six Caps', sans-serif;
+  font-size: 60px;
+  color: white;
+  letter-spacing: 0.2em;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.HeaderLogin {
+  position: absolute;
+  float: right;
+  left: 30px;
+  top: 37%;
+  font-size: 20px;
+}
+
+.HeaderLogin a#login-sign-in-link {
+  font-size: 30px;
+  text-decoration: none;
+  color: darkgrey;
+}
+
+
+/*
+MAIN CONTAINER
+*/
+main {
+  position: absolute;
+  top: 200px;
+  width: 100%;
+}
+
+/*
+CHARACTER PAGE
+*/
+
+#CharacterPage {
+  text-align: center;
+}
+
+h1#CharacterHead {
+  font-family: 'Dosis', sans-serif;
+  font-size: 2em;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+/* FIGHT REQUEST BUTTON */
+.selected {
+  background: yellow;
+}
