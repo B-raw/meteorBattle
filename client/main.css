@@ -100,3 +100,9 @@ h1#CharacterHead {
 .selected {
   background: yellow;
 }
+
+/* CHAT BOX */
+.chat-box {
+  height: 400px;
+  overflow: scroll;
+}

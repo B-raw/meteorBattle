@@ -1,4 +1,7 @@
 <template name="Lobby">
+  <section>
+    <button class="change-character">Change My Character</button>
+  </section>
   <h2>Battle Requests</h2>
     <ul>
       {{#each battleRequest}}
@@ -14,6 +17,10 @@
         {{> User }}
       {{/each}}
     </ul>
+
+    <section>
+      {{> Chat}}
+    </section>
 </template>
 
 <template name="User">

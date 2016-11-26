@@ -1,18 +1,6 @@
-var hostBrowser, opponentBrowser;
+import { signUp, signIn, signUpAndSignIn, getBrowser } from './testHelpers.test'
 
-function signUp(email, password){
-  server.call('user.signup', email, password);
-}
-function signIn(browserName, email, password){
-  browserName.url('http://localhost:3000');
-  browserName.execute(function(email, password){
-    Meteor.loginWithPassword(email, password);
-  }, email, password);
-}
-function signUpAndSignIn(browserName, email, password){
-  signUp(email, password);
-  signIn(browserName, email, password);
-}
+var hostBrowser, opponentBrowser;
 
 describe('sign up and display character', function() {
   beforeEach(function() {
@@ -47,18 +35,18 @@ describe('sign up and display character', function() {
     var lobbyTextHost = hostBrowser.getText('li:nth-of-type(1)');
     var lobbyTextOpponent = opponentBrowser.getText('li:nth-of-type(1)');
 
-    expect(lobbyTextHost).to.equal("Snorlax");
-    expect(lobbyTextOpponent).to.equal("Pikachu");
+    expect(lobbyTextHost).to.equal("Snorlax Fight");
+    expect(lobbyTextOpponent).to.equal("Pikachu Fight");
   });
 
   it("it doesn't display the logged in users character", function() {
     opponentBrowser.click('#login-name-link').click('#login-buttons-logout');
 
-    var lobbyTextHost = hostBrowser.getText('ul');
-    expect(lobbyTextHost).to.equal("");
+    var doesNotExist = hostBrowser.waitForExist("selector", undefined, true);
+    expect(doesNotExist).to.equal(true);
   });
 
-  it("it can select a player to battle and they receive a invitation @watch", function() {
+  it("it can select a player to battle and they receive a invitation", function() {
     hostBrowser.click('button .send-battle-invite')
     var lobbyTextHost = hostBrowser.getText('#pending-battle-invite')
     var lobbyTextOpponent = opponentBrowser.getText('#battle-invite')

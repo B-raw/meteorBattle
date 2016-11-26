@@ -22,7 +22,7 @@ describe('Chimp Mocha', function() {
       getBrowser(0).waitForExist("#login-sign-in-link");
       var actualText = getBrowser(0).getText("#login-sign-in-link");
 
-      expect(actualText).to.equal("Sign in ▾");
+      expect(actualText).to.equal("SIGN IN ▾");
     });
   });
 });
