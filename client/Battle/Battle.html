@@ -1,0 +1,32 @@
+<template name="Battle">
+
+  <div class="characters">
+
+    <div class="char_container">
+      <div class="host">
+        {{> Character host}}
+      </div>
+    </div>
+
+    <div class="char_container">
+      <div class="opponent">
+        {{> Character opponent}}
+      </div>
+
+      <div class="attacks">
+        {{> BattleControls }}
+      </div>
+    </div>
+
+  </div>
+
+</template>
+
+<template name='Character'>
+  <h1>{{name}}</h1>
+  <h1>{{hp}} HP</h1>
+</template>
+
+<template name="BattleControls">
+  <input class="attack" type="button" value="attack">
+</template>

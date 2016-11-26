@@ -1,0 +1,24 @@
+div.host {
+  font-size: 150%;
+  margin: 10px;
+  margin-right: 50px;
+}
+div.opponent {
+  font-size: 90%;
+}
+div.host h1, div.opponent h1 {
+  margin: 0;
+}
+div.host, div.opponent {
+  border: 1px dotted #aaa;
+  padding: 20px;
+}
+div.characters {
+  margin-bottom: 10px;
+}
+div.char_container {
+  display: inline-block;
+}
+div.attacks {
+  margin-top: 10px;
+}
