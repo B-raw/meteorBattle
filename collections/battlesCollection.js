@@ -1,6 +1,7 @@
 Battles = new Mongo.Collection('battles');
 
 Meteor.methods({
+  // Start a battle
   newBattle: function(hostId, opponentId){
     var battleId = Battles.insert({ fighter1: hostId, fighter2: opponentId, currentAttackerId: opponentId });
     Meteor.users.update(hostId, { $set: {battleId: battleId }});
