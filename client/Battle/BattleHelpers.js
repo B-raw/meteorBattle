@@ -21,6 +21,8 @@ BattleHelpers = {
     if (BattleHelpers.currentAttackerIs(BattleHelpers.currentAttacker())) {
       var damage = BattleHelpers.randomDamage(5, 15);
       Characters.update({_id: targetCharacter._id}, {$inc: { hp: (-1 * damage) }})
+      var battle = BattleHelpers.battle();
+      Meteor.call('switchTurns', targetCharacter.createdBy, battle._id);
     }
   },
 

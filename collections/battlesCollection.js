@@ -24,5 +24,9 @@ Meteor.methods({
         FlowRouter.go('battle')
       }
     });
+  },
+
+  'switchTurns'(nextAttackerId, battleId){
+    Battles.update(battleId, {$set: { currentAttackerId: nextAttackerId }});
   }
 });
