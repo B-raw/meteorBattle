@@ -1,9 +1,14 @@
 <template name="Battle">
 
   {{#if battleLoaded}}
+    {{resetHitPointsOnLoad}}
 
     <div class="characters">
-      <h2>{{currentAttacker.name}}'s turn</h2>
+      {{#if battleIsOver}}
+        <h1>{{winnerOrLoserMessage}}</h1>
+      {{else}}
+        <h2>{{currentAttacker.name}}'s turn</h2>
+      {{/if}}
 
       <div class="char_container">
         <div class="host">
@@ -18,8 +23,15 @@
       </div>
 
       <div class="attacks">
-        {{#if currentAttackerIs host}}
-          {{> BattleControls opponent}}
+        {{#if battleIsOver}}
+          <button id='return_to_lobby' class="attack">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"> </i> <span>Return to LOBBY</span>
+          </button>
+
+        {{else}}
+          {{#if currentAttackerIs host}}
+            {{> BattleControls opponent}}
+          {{/if}}
         {{/if}}
       </div>
 

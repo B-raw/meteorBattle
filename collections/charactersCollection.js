@@ -18,6 +18,16 @@ CharacterSchema = new SimpleSchema({
     defaultValue: 100
   },
 
+  wins: {
+    type: Number,
+    defaultValue: 0
+  },
+
+  losses: {
+    type: Number,
+    defaultValue: 0
+  },
+
   createdAt: {
     type: Date,
     label: "Created At",
@@ -26,6 +36,7 @@ CharacterSchema = new SimpleSchema({
     },
     autoform: { type: 'hidden'}
   },
+
   createdBy: {
     type: String,
     label: "Created By",

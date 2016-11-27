@@ -2,7 +2,13 @@ BattleHelpers = {
   battle: function(){
     var host = Meteor.user();
     if (host) {
-      return Battles.findOne(host.battleId);
+      if (BattleHelpers._battleId) {
+        return Battles.findOne(BattleHelpers._battleId)
+      } else {
+        var battle = Battles.findOne(host.battleId);
+        BattleHelpers._battleId = battle._id;
+        return battle
+      }
     }
   },
 
@@ -17,12 +23,20 @@ BattleHelpers = {
     return hostChar._id === BattleHelpers.currentAttacker()._id
   },
 
-  throwMeteorTo: function(targetCharacter){
-    if (BattleHelpers.currentAttackerIs(BattleHelpers.currentAttacker())) {
-      var damage = BattleHelpers.randomDamage(5, 15);
-      Characters.update({_id: targetCharacter._id}, {$inc: { hp: (-1 * damage) }})
+  throwMeteorTo: function(targetChar){
+    var attackerChar = BattleHelpers.currentAttacker();
+    if (BattleHelpers.currentAttackerIs(attackerChar)) {
       var battle = BattleHelpers.battle();
-      Meteor.call('switchTurns', targetCharacter.createdBy, battle._id);
+
+      var damage = BattleHelpers.randomDamage(5, 15);
+      Characters.update({_id: targetChar._id}, {$inc: { hp: (-1 * damage) }})
+
+      var updatedTargetChar = Characters.findOne(targetChar._id);
+      if (updatedTargetChar.hp <= 0) {
+        Meteor.call('battleOver', battle._id, targetChar, attackerChar);
+      } else {
+        Meteor.call('switchTurns', targetChar.createdBy, battle._id);
+      }
     }
   },
 
