@@ -1,8 +1,7 @@
 <template name='Chat'>
-  <br>
-  <input type="text" id="message" placeholder="enter a message">
+  <input id="message" placeholder="write a message to other online users">
   {{#if messages}}
-    <ul>
+    <ul class="chat-box">
     {{#each messages}}
       <li class="message">
         <p class="message_header">

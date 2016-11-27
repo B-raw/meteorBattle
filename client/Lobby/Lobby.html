@@ -1,31 +1,52 @@
 <template name="Lobby">
-  <h2>Battle Requests</h2>
-    <ul>
-      {{#each battleRequest}}
-      <li>
-        {{> UserAcceptFight}}
-      </li>
-      {{/each}}
-    </ul>
+  {{> EditCharacter}}
 
-  <h2>Online Users</h2>
+  <section class="players-list-container">
+    {{#if battleRequest}}
+      <h2>Battle Requests</h2>
+      <ul>
+        {{#each battleRequest}}
+        <li>
+          {{> UserAcceptFight}}
+        </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
+    <h2>Online Users</h2>
     <ul>
       {{#each usersOnline }}
         {{> User }}
+      {{else}}
+        <p>Sorry, no other users online at the moment!</p>
       {{/each}}
     </ul>
+  </section>
+
+  <section class="chat-container">
+    {{> Chat}}
+  </section>
 </template>
 
 <template name="User">
   {{#if character}}
-  <li class="player">
-      {{character}} <button class='send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
-  </li>
+    <li>
+      {{character}} <button class='btn send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
+    </li>
   {{/if}}
 </template>
 
 <template name="UserAcceptFight">
   <li class="player">
-    {{character}} <button class='accept-battle-invite'>Accept Battle Request</button>
+    {{character}} <button class='btn accept-battle-invite'>Accept Battle Request</button>
   </li>
+</template>
+
+<template name="EditCharacter">
+  <button class="btn" id="edit-character-option-button"><i class="fa fa-pencil"></i> Edit My Character</button>
+  <section class="edit-character-section">
+    {{#if $.Session.get 'editMode'}}
+      {{> EditCharacterForm}}
+    {{/if}}
+  </section>
 </template>

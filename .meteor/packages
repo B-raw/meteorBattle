@@ -20,7 +20,6 @@ shell-server@0.2.1            # Server-side component of the `meteor shell` comm
 
 kadira:flow-router
 kadira:blaze-layout
-erasaur:meteor-lodash
 stolinski:stylus-multi
 fortawesome:fontawesome
 spiderable
@@ -35,7 +34,6 @@ zimme:active-route
 gwendall:auth-client-callbacks
 meteortoys:allthings
 check
-practicalmeteor:mocha
 xolvio:backdoor
 xolvio:cleaner
 mizzao:user-status
