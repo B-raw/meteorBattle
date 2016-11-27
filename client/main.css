@@ -162,12 +162,9 @@ section {
   padding: 0;
 }
 
-.players-list-container li {
-  font-size: 20px;
-}
-
 .players-list-container .player {
-  margin-right: 30px;
+  font-size: 20px;
+  margin: 30px 30px 10px 0;
 }
 
 .players-list-container .send-battle-invite, .accept-battle-invite {
