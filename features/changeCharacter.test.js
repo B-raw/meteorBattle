@@ -22,13 +22,13 @@ describe("New Character Form @watch", function () {
     hostBrowser = browser.instances[0];
     opponentBrowser = browser.instances[1];
 
-    hostBrowser.waitForExist('#edit-character-option')
-    var newCharacterButton = hostBrowser.getText('#edit-character-option');
+    hostBrowser.waitForExist('#edit-character-option-button')
+    var newCharacterButton = hostBrowser.getText('#edit-character-option-button');
 
     expect(newCharacterButton).to.equal("Edit My Character")
     var doesFormExist = hostBrowser.waitForExist(".editCharacterForm", undefined, true);
     expect(doesFormExist).to.equal(true);
-    hostBrowser.click("#edit-character-option")
+    hostBrowser.click("#edit-character-option-button")
 
     var doesFormExist = hostBrowser.waitForExist(".editCharacterForm");
     expect(doesFormExist).to.equal(true);

@@ -35,7 +35,7 @@ describe('Character', function() {
 
     it('displays your characters on the fight page', function() {
       var hostBrowser = browser.instances[0]
-      hostBrowser.waitForExist('#edit-character-option');
+      hostBrowser.waitForExist('#edit-character-option-button');
       var getLobbyUrl = hostBrowser.getUrl();
 
       expect(getLobbyUrl).to.equal("http://localhost:3000/lobby");

@@ -1,4 +1,9 @@
 /* GLOBAL */
+/* This border is for css layout testing purposes */
+/** {
+  border: 1px solid red;
+}*/
+
 .btn {
   color: white;
   background-color: #aaa;
@@ -115,8 +120,8 @@ h1#CharacterHead {
 }
 
 /* EDIT CHARACTER */
-section.edit-character-section {
-  width: 800px;
+section {
+  width: 1000px;
   margin: auto;
   text-align: center;
 }
@@ -152,13 +157,68 @@ section.edit-character-section {
   padding: 6px 15px;
 }
 
+/* PLAYERS LIST */
+
+.players-list-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.players-list-container li {
+  font-size: 20px;
+}
+
+.players-list-container .player {
+  margin-right: 30px;
+}
+
+.players-list-container .send-battle-invite, .accept-battle-invite {
+  margin-left: 80px;
+  font-size: 16px;
+}
+
+.players-list-container h2 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 2em;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
 /* FIGHT REQUEST BUTTON */
 .selected {
   background: yellow;
 }
 
 /* CHAT BOX */
+.chat-container {
+    margin: 80px auto;
+}
+
+.chat-container input {
+  width: 800px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 0;
+  border: 1px solid #aaa;
+  border-radius: 7px;
+  font-family: 'Dosis', sans-serif;
+}
+
 .chat-box {
-  height: 400px;
+  margin: 30px 0 0 0;
+  height: 380px;
   overflow: scroll;
+  list-style: none;
+  font-family: 'Dosis', sans-serif;
+}
+
+.chat-box .message_header {
+  margin: 0;
+  font-weight: 600px;
+}
+
+.chat-box .message_text {
+  margin: 0 0 20px 0;
+  font-size: 18px;
 }
