@@ -1,5 +1,11 @@
 Characters = new Mongo.Collection('characters');
 
+Characters.allow({
+  update: function(userId, doc, fields, modifier) {
+    return !!userId;
+  }
+});
+
 CharacterSchema = new SimpleSchema({
   name: {
     type: String,
@@ -9,9 +15,17 @@ CharacterSchema = new SimpleSchema({
   hp: {
     type: Number,
     label: 'hp',
-    autoValue: function() {
-      return 100
-    }
+    defaultValue: 100
+  },
+
+  wins: {
+    type: Number,
+    defaultValue: 0
+  },
+
+  losses: {
+    type: Number,
+    defaultValue: 0
   },
 
   createdAt: {
@@ -22,6 +36,7 @@ CharacterSchema = new SimpleSchema({
     },
     autoform: { type: 'hidden'}
   },
+
   createdBy: {
     type: String,
     label: "Created By",

@@ -27,9 +27,12 @@
   font-family: 'Dosis', sans-serif;
 */
 
+body, div, h1, h2, h3, h4, h5, h6, input, button, textarea, a, label {
+  font-family: 'Dosis', sans-serif;
+}
+
 /*HOMEPAGE*/
 .billboard h1 {
-  padding-top: 7%;
   font-family: 'Six Caps', sans-serif;
   font-size: 120px;
   letter-spacing: 0.2em;
@@ -58,20 +61,26 @@
   color: inherit;
 }
 
+div.HomeLogin #login-dropdown-list {
+  margin-left: -80px;
+}
+
+div.HomeLogin a.login-close-text {
+  margin-left: 95px;
+}
 
 /* HEADER */
 
-header {
+.header {
   background-color: lightgrey;
-  position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 115px;
 }
 
-header h1 {
-  margin: 10px;
+.header h1 {
+  margin: 0;
   font-family: 'Six Caps', sans-serif;
   font-size: 60px;
   color: white;
@@ -81,11 +90,11 @@ header h1 {
 }
 
 .HeaderLogin {
-  position: absolute;
-  float: right;
+  float: left;
   left: 30px;
   top: 37%;
   font-size: 20px;
+  margin: 0 0 20px 20px;
 }
 
 .HeaderLogin a#login-sign-in-link {
@@ -98,10 +107,22 @@ header h1 {
 /*
 MAIN CONTAINER
 */
+
+html, body, #__blaze-root {
+  height: 100%;
+}
+
+#__blaze-root {
+  /*display: table;*/
+  text-align: center;
+  width: auto;
+  margin: auto;
+}
+
 main {
-  position: absolute;
-  top: 200px;
-  width: 100%;
+  height: 100%;
+  /*display: table-cell;*/
+  vertical-align: middle;
 }
 
 /*
@@ -137,6 +158,10 @@ section {
   font-size: 2em;
   letter-spacing: 0.2em;
   margin: 0 0 20px 0;
+}
+
+.edit-character-section {
+  margin-top: 30px;
 }
 
 .edit-character-section input {

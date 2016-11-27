@@ -29,9 +29,11 @@
 </template>
 
 <template name="User">
-  <li class="player">
-    {{character}} <button class='btn send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
-  </li>
+  {{#if character}}
+    <li>
+      {{character}} <button class='btn send-battle-invite {{selectedClass}} {{pendingClass}}'>Fight</button>
+    </li>
+  {{/if}}
 </template>
 
 <template name="UserAcceptFight">

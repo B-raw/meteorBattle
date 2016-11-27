@@ -1,24 +1,43 @@
 <template name="Battle">
 
-  <div class="characters">
+  {{#if battleLoaded}}
+    {{resetHitPointsOnLoad}}
 
-    <div class="char_container">
-      <div class="host">
-        {{> Character host}}
+    <div class="characters">
+      {{#if battleIsOver}}
+        <h1>{{winnerOrLoserMessage}}</h1>
+      {{else}}
+        <h2>{{currentAttacker.name}}'s turn</h2>
+      {{/if}}
+
+      <div class="char_container">
+        <div class="host">
+          {{> Character host}}
+        </div>
       </div>
-    </div>
 
-    <div class="char_container">
-      <div class="opponent">
-        {{> Character opponent}}
+      <div class="char_container">
+        <div class="opponent">
+          {{> Character opponent}}
+        </div>
       </div>
 
       <div class="attacks">
-        {{> BattleControls }}
+        {{#if battleIsOver}}
+          <button id='return_to_lobby' class="attack">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"> </i> <span>Return to LOBBY</span>
+          </button>
+
+        {{else}}
+          {{#if currentAttackerIs host}}
+            {{> BattleControls opponent}}
+          {{/if}}
+        {{/if}}
       </div>
+
     </div>
 
-  </div>
+  {{/if}}
 
 </template>
 
@@ -28,5 +47,7 @@
 </template>
 
 <template name="BattleControls">
-  <input class="attack" type="button" value="attack">
+  <button id='meteor_attack' class="attack">
+    <i class="fa fa-bomb" aria-hidden="true"> <span>Throw Meteor</span></i>
+  </button>
 </template>
