@@ -39,11 +39,11 @@ body, div, h1, h2, h3, h4, h5, h6, input, button, textarea, a, label {
   color: inherit;
 }
 
-#login-dropdown-list {
+div.HomeLogin #login-dropdown-list {
   margin-left: -80px;
 }
 
-a.login-close-text {
+div.HomeLogin a.login-close-text {
   margin-left: 95px;
 }
 
