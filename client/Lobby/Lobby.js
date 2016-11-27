@@ -29,7 +29,7 @@ Template.Lobby.events({
     var recipientPlayer = Session.get('selectedPlayer');
     Meteor.call('addPendingBattle', recipientId, senderId)
   },
-  'click #edit-character-option'() {
+  'click #edit-character-option-button'() {
     Session.set('editMode', !Session.get('editMode'));
   }
 });

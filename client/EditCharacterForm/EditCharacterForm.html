@@ -1,11 +1,12 @@
 <template name="EditCharacterForm">
-  <container id="CharacterPage">
-  <h1 id="CharacterHead">EDIT YOUR CHARACTER</h1>
-  <br>
+  <h1 id="edit-character-page">EDIT YOUR CHARACTER</h1>
+
   <form class="editCharacterForm">
     <input type="text" name="name" placeholder="Change character name">
-    <input type="submit" value="Confirm">
-    <input type="button" value="Cancel" class='cancelEditCharacter'>
+    <div class="edit-character-buttons">
+      <button type="submit" class="btn">Confirm</button>
+      <button class='cancelEditCharacter btn'>Cancel</button>
+    </div>
   </form>
-  </container>
+
 </template>

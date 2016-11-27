@@ -1,11 +1,12 @@
 <template name="Lobby">
-  <section>
-    <button id="edit-character-option">Edit My Character</button>
+    <button class="btn" id="edit-character-option-button"><i class="fa fa-pencil"></i> Edit My Character</button>
+    <section class="edit-character-section">
     {{#if $.Session.get 'editMode'}}
       {{> EditCharacterForm}}
     {{/if}}
   </section>
-  <h2>Battle Requests</h2>
+  {{#if battleRequest}}
+    <h2>Battle Requests</h2>
     <ul>
       {{#each battleRequest}}
       <li>
@@ -13,11 +14,14 @@
       </li>
       {{/each}}
     </ul>
+  {{/if}}
 
   <h2>Online Users</h2>
     <ul>
       {{#each usersOnline }}
         {{> User }}
+      {{else}}
+        <p>Sorry, no other users online at the moment!</p>
       {{/each}}
     </ul>
 
