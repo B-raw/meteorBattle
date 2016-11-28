@@ -210,7 +210,7 @@ section {
 
 /* FIGHT REQUEST BUTTON */
 .selected {
-  background: yellow;
+  background: #cccc00;
 }
 
 /* CHAT BOX */

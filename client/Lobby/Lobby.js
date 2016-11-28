@@ -20,20 +20,6 @@ Template.Lobby.helpers({
  }
 });
 
-// on click sends a fight request
-Template.Lobby.events({
-  'click .player button'() {
-    var recipientId = this._id
-    var senderId = Meteor.userId();
-    Session.set('selectedPlayer', recipientId);
-    var recipientPlayer = Session.get('selectedPlayer');
-    Meteor.call('addPendingBattle', recipientId, senderId)
-  },
-  'click #edit-character-option-button'() {
-    Session.set('editMode', !Session.get('editMode'));
-  }
-});
-
 Template.User.helpers({
   // Returns the character name for a given online user
   'character'() {
@@ -46,9 +32,24 @@ Template.User.helpers({
   'selectedClass'() {
     var playerId = this._id;
     var selectedPlayer = Session.get('selectedPlayer');
+    $('button.send-battle-invite').text("Pending Battle Request") 
     if(playerId == selectedPlayer) {
       return "selected"
     }
+  }
+});
+
+// on click sends a fight request
+Template.Lobby.events({
+  'click .send-battle-invite'() {
+    var recipientId = this._id
+    var senderId = Meteor.userId();
+    Session.set('selectedPlayer', recipientId);
+    var recipientPlayer = Session.get('selectedPlayer');
+    Meteor.call('addPendingBattle', recipientId, senderId)
+  },
+  'click #edit-character-option-button'() {
+    Session.set('editMode', !Session.get('editMode'));
   }
 });
 // Display name of the character who's challenged you
